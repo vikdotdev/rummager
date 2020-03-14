@@ -1,25 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import 'react-router-dom';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-class App extends React.Component {
-  constructor({ greeting }) {
-    super();
+import actions from '../redux/actions';
 
-    this.state = {
-      greeting
-    };
-  }
+import Search from './Search/Search';
 
-  render () {
-    const { greeting } = this.state;
+const App = ({ keyword, searchValueChange }) => (
+  <Router>
+    <Switch>
+      <Route path='/'>
+        <Search keyword={keyword} searchValueChange={searchValueChange} />
+        {keyword}
+      </Route>
+    </Switch>
+  </Router>
+);
 
-    return (
-      <React.Fragment>
-        { greeting }
-      </React.Fragment>
-    );
-  }
-}
+const mapStateToProps = state => {
+  return {
+    keyword: state.searchStore.keyword
+  };
+};
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  searchValueChange: ({ keyword }) => dispatch(actions.searchValueChange(keyword))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
