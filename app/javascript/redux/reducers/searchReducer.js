@@ -1,15 +1,19 @@
 const defaultState = {
   keywords: [],
   results: [],
+  loading: false,
   error: ''
 };
 
-const searchReducer = (state = defaultState, { type, keywords, results, error }) => {
+const searchReducer = (
+  state = defaultState,
+  { type, keywords, results, error }
+) => {
   switch (type) {
   case 'SEARCH_VALUE_CHANGE': return { ...state, keywords };
-  case 'LOAD_USERS_BEGIN': return { ...state, results };
-  case 'LOAD_USERS_SUCCESS': return { ...state, results };
-  case 'LOAD_USERS_FAILURE': return { ...state, error };
+  case 'LOAD_USERS_BEGIN': return { ...state, results, loading: true };
+  case 'LOAD_USERS_SUCCESS': return { ...state, results, loading: false };
+  case 'LOAD_USERS_FAILURE': return { ...state, error, loading: false };
   default: return state;
   }
 };

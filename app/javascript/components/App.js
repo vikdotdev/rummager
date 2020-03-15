@@ -7,8 +7,9 @@ import actions from '../redux/actions';
 import API from '../api';
 
 import Search from './Search/Search';
+import Results from './Results/Results';
 
-const App = ({ keywords, results, error, updateInput, fetchUsers }) => (
+const App = ({ keywords, results, loading, error, updateInput, fetchUsers }) => (
   <Router>
     <Switch>
       <Route path='/search'>
@@ -17,9 +18,14 @@ const App = ({ keywords, results, error, updateInput, fetchUsers }) => (
           updateInput={updateInput}
           fetchUsers={fetchUsers}
         />
-        <div>{keywords}</div>
-        <div>{JSON.stringify(results)}</div>
-        <div>{error}</div>
+      </Route>
+      <Route path='/results'>
+        <Search
+          keywords={keywords}
+          updateInput={updateInput}
+          fetchUsers={fetchUsers}
+        />
+        <Results loading={loading} results={results} />
       </Route>
       <Route to='/'>
         <Redirect to="/search" />
@@ -31,6 +37,7 @@ const App = ({ keywords, results, error, updateInput, fetchUsers }) => (
 App.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   results: PropTypes.array,
+  loading: PropTypes.bool,
   error: PropTypes.string,
   updateInput: PropTypes.func,
   fetchUsers: PropTypes.func
@@ -39,6 +46,7 @@ App.propTypes = {
 const mapStateToProps = state => ({
   keywords: state.search.keywords,
   results: state.search.results,
+  loading: state.search.loading,
   error: state.search.error
 });
 
