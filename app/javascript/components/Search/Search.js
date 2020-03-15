@@ -1,13 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-const Search = ({ keywords, updateInput, fetchUsers }) => {
+const Search = ({ keywords, updateInput, fetchUsers, history, location }) => {
   const dispatchInputValue = e => updateInput(e.target.value.split(' '));
+
+  const search = () => {
+    fetchUsers(keywords);
+
+    const path = '/results';
+    location.pathname !== path && history.push(path);
+  };
 
   return (
     <>
       <input onChange={dispatchInputValue} />
-      <button onClick={() => fetchUsers(keywords)}>Search</button>
+      <button onClick={search}>Search</button>
+      <div>{keywords.join(' ')}</div>
     </>
   );
 };
@@ -15,7 +24,9 @@ const Search = ({ keywords, updateInput, fetchUsers }) => {
 Search.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   updateInput: PropTypes.func,
-  fetchUsers: PropTypes.func
+  fetchUsers: PropTypes.func,
+  history: PropTypes.object,
+  location: PropTypes.object
 };
 
-export default Search;
+export default withRouter(Search);
