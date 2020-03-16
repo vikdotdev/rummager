@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :user do
-    full_name { Faker::Name.name }
-    description { Faker::Lorem.paragraph }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    bio { Faker::Lorem.paragraph }
   end
 end
