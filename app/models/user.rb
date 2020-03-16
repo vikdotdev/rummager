@@ -1,4 +1,5 @@
 class User < ApplicationRecord
-  validates :full_name, presence: true, length: { minimum: 3, maximum: 50 }
-  validates :description, length: { maximum: 500 }
+  validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :bio, length: { maximum: 500 }
 end
