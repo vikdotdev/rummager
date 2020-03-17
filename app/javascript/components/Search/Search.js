@@ -6,10 +6,12 @@ const Search = ({ keywords, updateInput, fetchUsers, history, location }) => {
   const dispatchInputValue = e => updateInput(e.target.value.split(' '));
 
   const search = () => {
-    fetchUsers(keywords);
+    if (keywords.length) {
+      fetchUsers(keywords);
 
-    const path = '/results';
-    location.pathname !== path && history.push(path);
+      const path = '/results';
+      location.pathname !== path && history.push(path);
+    }
   };
 
   return (

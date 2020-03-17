@@ -36,7 +36,7 @@ const App = ({ keywords, results, loading, error, updateInput, fetchUsers }) => 
 
 App.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
-  results: PropTypes.array,
+  results: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.string,
   updateInput: PropTypes.func,
