@@ -2,30 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-const Results = ({ results, loading, history }) => {
-  (!loading && results && !results.length) && history.push('/search');
-
-  const resultItems = !loading && results.map((result, i) => {
+const Results = ({ results, loading }) => {
+  const resultItems = !loading && results.data.map(result => {
     return (
-      <div key={i}>
+      <div key={result.id}>
         <div>{result.id}</div>
-        <div>{result.full_name}</div>
-        <div>{result.description}</div>
+        <div>{result.first_name}</div>
+        <div>{result.last_name}</div>
+        <div>{result.bio}</div>
       </div>
     );
   });
 
   return (
     <div>
-      {resultItems}
+      {resultItems.length ? resultItems : <div>No results</div>}
     </div>
   );
 };
 
 Results.propTypes = {
-  results: PropTypes.array,
-  loading: PropTypes.bool,
-  history: PropTypes.object
+  results: PropTypes.object,
+  loading: PropTypes.bool
 };
 
 export default withRouter(Results);

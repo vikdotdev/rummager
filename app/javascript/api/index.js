@@ -6,7 +6,7 @@ const user = {
     return dispatch => {
       dispatch(actions.loadUsersBegin());
 
-      return axios.get('api/users', { params: { keywords }})
+      return axios.get('api/users.json', { params: { keywords }})
         .then(({ data }) => dispatch(actions.loadUsersSuccess(data)))
         .catch(e => dispatch(actions.loadUsersFailure(e.message)));
     };
