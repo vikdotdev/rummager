@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :users, only: %i[index show]
+    resources :users, only: :index
   end
 
   get '/(*all)', to: 'home#index'
