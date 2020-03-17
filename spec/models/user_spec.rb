@@ -8,27 +8,42 @@ RSpec.describe User, type: :model do
   end
 
   it 'is valid with blank description' do
-    user.description = ''
+    user.bio = ''
     expect(user).to be_valid
   end
 
   it 'is not valid with too long of a description' do
-    user.description = 'a' * 501
+    user.bio = 'a' * 501
     expect(user).not_to be_valid
   end
 
-  it 'is not valid with blank full_name' do
-    user.full_name = ''
+  it 'is not valid with blank first_name' do
+    user.first_name = ''
     expect(user).not_to be_valid
   end
 
-  it 'is not valid with too short of a full_name' do
-    user.full_name = 'a' * 2
+  it 'is not valid with blank last_name' do
+    user.last_name = ''
     expect(user).not_to be_valid
   end
 
-  it 'is not valid with too long of a full_name' do
-    user.full_name = 'a' * 51
+  it 'is not valid with too short of a first_name' do
+    user.first_name = 'a' * 1
+    expect(user).not_to be_valid
+  end
+
+  it 'is not valid with too short of a last_name' do
+    user.last_name = 'a' * 1
+    expect(user).not_to be_valid
+  end
+
+  it 'is not valid with too long of a first_name' do
+    user.first_name = 'a' * 51
+    expect(user).not_to be_valid
+  end
+
+  it 'is not valid with too long of a last_name' do
+    user.last_name = 'a' * 51
     expect(user).not_to be_valid
   end
 end
