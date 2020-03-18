@@ -11,6 +11,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-loader-spinner": "^3.1.5",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react_ujs": "^2.6.1",
@@ -22,6 +23,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "redux-devtools": "^3.5.0",
+    "stylelint-config-standard": "^20.0.0",
     "webpack-dev-server": "^3.10.3"
   }
 }

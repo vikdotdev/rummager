@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 
 const Results = ({ results, loading }) => {
   const resultItems = !loading && results.data.map(result => {
@@ -16,7 +17,8 @@ const Results = ({ results, loading }) => {
 
   return (
     <div>
-      {resultItems.length ? resultItems : <div>No results</div>}
+      { loading && <Loader type='TailSpin' /> }
+      { resultItems.length ? resultItems : !loading && <div>No results</div> }
     </div>
   );
 };
