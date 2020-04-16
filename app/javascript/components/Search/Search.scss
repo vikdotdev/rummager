@@ -1,0 +1,21 @@
+@import '../colors';
+
+.grid {
+  display: grid;
+  grid-template-columns: 10fr 2fr;
+}
+
+.input-with-button-right {
+  input[type=search] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
+
+  button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

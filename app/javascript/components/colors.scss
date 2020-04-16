@@ -1,0 +1,18 @@
+
+// $primary: #ace8fa;
+$primary: #1eaedb;
+$foreground: #545454;
+$background: #fff4e6;
+$white: #fff;
+$light: #bbb;
+$black: #434343;
+$danger: #ff4f4f;
+$success: #05e8a4;
+$warning: #faa00f;
+
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $primary,
+  'info': $primary,
+  'danger': $danger
+);

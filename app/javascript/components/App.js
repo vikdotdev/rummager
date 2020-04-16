@@ -9,29 +9,35 @@ import API from '../api';
 import Search from './Search/Search';
 import Results from './Results/Results';
 
+// import 'skeleton-framework/dist/skeleton.css';
+import './spine.scss';
+import './App.scss';
+
 const App = ({ keywords, results, loading, error, updateInput, fetchUsers }) => (
-  <Router>
-    <Switch>
-      <Route path='/search'>
-        <Search
-          keywords={keywords}
-          updateInput={updateInput}
-          fetchUsers={fetchUsers}
-        />
-      </Route>
-      <Route path='/results'>
-        <Search
-          keywords={keywords}
-          updateInput={updateInput}
-          fetchUsers={fetchUsers}
-        />
-        <Results loading={loading} results={results} />
-      </Route>
-      <Route to='/'>
-        <Redirect to="/search" />
-      </Route>
-    </Switch>
-  </Router>
+  <div className='container'>
+    <Router>
+      <Switch>
+        <Route path='/search'>
+          <Search
+            keywords={keywords}
+            updateInput={updateInput}
+            fetchUsers={fetchUsers}
+          />
+        </Route>
+        <Route path='/results'>
+          <Search
+            keywords={keywords}
+            updateInput={updateInput}
+            fetchUsers={fetchUsers}
+          />
+          <Results loading={loading} results={results} />
+        </Route>
+        <Route to='/'>
+          <Redirect to="/search" />
+        </Route>
+      </Switch>
+    </Router>
+  </div>
 );
 
 App.propTypes = {
