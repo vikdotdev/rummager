@@ -21,10 +21,11 @@ const Search = ({ keywords, updateInput, fetchUsers, history, location }) => {
       <div className='grid input-with-button-right'>
         <input
           type='search'
+          autoFocus
           onChange={dispatchInputValue}
           onKeyPress={e => e.key == 'Enter' && search()}
         />
-      <button className='two columns' onClick={search}>Search</button>
+        <button className='two columns' onClick={search}>Search</button>
       </div>
     </>
   );

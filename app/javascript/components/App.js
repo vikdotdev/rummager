@@ -7,11 +7,12 @@ import actions from '../redux/actions';
 
 import Search from './Search/Search';
 import Results from './Results/Results';
+import Sidebar from './Sidebar/Sidebar';
 
 import './spine.scss';
 import './App.scss';
 
-const App = ({ keywords, results, loading, error, updateInput, fetchUsers }) => (
+const App = ({ keywords, results, loading, error, selectedUserID, updateInput, fetchUsers, setSelectedUser }) => (
   <div className='container'>
     <Router>
       <Switch>
@@ -28,7 +29,8 @@ const App = ({ keywords, results, loading, error, updateInput, fetchUsers }) => 
             updateInput={updateInput}
             fetchUsers={fetchUsers}
           />
-          <Results loading={loading} results={results} />
+          <Results loading={loading} results={results} setSelectedUser={setSelectedUser} />
+          <Sidebar results={results} selectedUserID={selectedUserID} setSelectedUser={setSelectedUser}/>
         </Route>
         <Route to='/'>
           <Redirect to="/search" />
@@ -43,20 +45,24 @@ App.propTypes = {
   results: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  selectedUserID: PropTypes.string,
   updateInput: PropTypes.func,
-  fetchUsers: PropTypes.func
+  fetchUsers: PropTypes.func,
+  setSelectedUser: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   keywords: state.search.keywords,
   results: state.search.results,
   loading: state.search.loading,
-  error: state.search.error
+  error: state.search.error,
+  selectedUserID: state.search.selectedUserID
 });
 
 const mapDispatchToProps = dispatch => ({
   updateInput: keywords => dispatch(actions.searchValueChange(keywords)),
-  fetchUsers: () => dispatch(actions.fetchUsers())
+  fetchUsers: () => dispatch(actions.fetchUsers()),
+  setSelectedUser: id => dispatch(actions.setSelectedUser(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
