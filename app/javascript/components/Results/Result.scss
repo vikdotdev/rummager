@@ -1,0 +1,25 @@
+.user-result {
+  border: 1px solid #cecece;
+  border-radius: 6px;
+  padding: 16px;
+  cursor: pointer;
+  margin-bottom: 16px;
+
+  .title {
+    margin-bottom: 12px;
+    font-size: 24px;
+    font-weight: 500;
+
+    span.id {
+      display: inline-block;
+      color: #eaeaea;
+      min-width: 36px;
+      text-align: right;
+      margin-right: 4px;
+    }
+  }
+
+  p.bio {
+    margin-bottom: 0;
+  }
+}

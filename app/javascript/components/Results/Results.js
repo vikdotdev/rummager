@@ -2,22 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
+import Result from './Result';
+import './Results.scss';
 
 const Results = ({ results, loading }) => {
-  const resultItems = !loading && results.data.map(result => {
-    return (
-      <div key={result.id}>
-        <div>{result.id}</div>
-        <div>{result.first_name}</div>
-        <div>{result.last_name}</div>
-        <div>{result.bio}</div>
-      </div>
-    );
+  const resultItems = !loading && results.data.map(data => {
+    return (<Result key={data.id} {...data} />);
   });
 
   return (
-    <div>
-      { loading && <Loader type='TailSpin' /> }
+    <div className='user-list'>
+      { loading && <Loader type='TailSpin' color='#ddd' className='spinner' /> }
       { resultItems.length ? resultItems : !loading && <div>No results</div> }
     </div>
   );
