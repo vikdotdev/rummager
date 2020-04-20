@@ -1,16 +1,20 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
+import rootSaga from '../redux/sagas';
 import rootReducer from '../redux/reducers';
-
 import App from './App';
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk)
+  applyMiddleware(sagaMiddleware)
 );
+
+sagaMiddleware.run(rootSaga);
 
 const Wrapper = () => {
   return (
