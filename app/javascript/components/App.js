@@ -4,12 +4,10 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import actions from '../redux/actions';
-import API from '../api';
 
 import Search from './Search/Search';
 import Results from './Results/Results';
 
-// import 'skeleton-framework/dist/skeleton.css';
 import './spine.scss';
 import './App.scss';
 
@@ -58,7 +56,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateInput: keywords => dispatch(actions.searchValueChange(keywords)),
-  fetchUsers: keywords => dispatch(API.user.all(keywords))
+  fetchUsers: () => dispatch(actions.fetchUsers())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

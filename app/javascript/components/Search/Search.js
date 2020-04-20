@@ -9,7 +9,7 @@ const Search = ({ keywords, updateInput, fetchUsers, history, location }) => {
 
   const search = () => {
     if (keywords.length) {
-      fetchUsers(keywords);
+      fetchUsers();
 
       const path = '/results';
       location.pathname !== path && history.push(path);
@@ -24,10 +24,7 @@ const Search = ({ keywords, updateInput, fetchUsers, history, location }) => {
           onChange={dispatchInputValue}
           onKeyPress={e => e.key == 'Enter' && search()}
         />
-      <button
-          className='two columns'
-          onClick={search}>Search</button>
-        <div>{keywords.join(' ')}</div>
+      <button className='two columns' onClick={search}>Search</button>
       </div>
     </>
   );

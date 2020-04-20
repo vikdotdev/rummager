@@ -1,14 +1,17 @@
 const searchValueChange = keywords => ({ type: 'SEARCH_VALUE_CHANGE', keywords });
 
-const loadUsersBegin = () => ({ type: 'LOAD_USERS_BEGIN' });
+const fetchUsers = () => ({ type: 'FETCH_USERS' });
 
-const loadUsersSuccess = results => ({ type: 'LOAD_USERS_SUCCESS', results });
+const fetchUsersBegin = () => ({ type: 'FETCH_USERS_BEGIN' });
 
-const loadUsersFailure = error => ({ type: 'LOAD_USERS_FAILURE', error });
+const fetchUsersSuccess = results => ({ type: 'FETCH_USERS_SUCCESS', results });
+
+const fetchUsersFailure = error => ({ type: 'FETCH_USERS_FAILURE', error });
 
 export default {
   searchValueChange,
-  loadUsersBegin,
-  loadUsersSuccess,
-  loadUsersFailure
+  fetchUsers,
+  fetchUsersBegin,
+  fetchUsersSuccess,
+  fetchUsersFailure
 };

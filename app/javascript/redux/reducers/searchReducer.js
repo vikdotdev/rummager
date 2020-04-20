@@ -11,9 +11,9 @@ const searchReducer = (
 ) => {
   switch (type) {
   case 'SEARCH_VALUE_CHANGE': return { ...state, keywords };
-  case 'LOAD_USERS_BEGIN': return { ...state, loading: true };
-  case 'LOAD_USERS_SUCCESS': return { ...state, results, loading: false };
-  case 'LOAD_USERS_FAILURE': return { ...state, error, loading: false };
+  case 'FETCH_USERS_BEGIN': return { ...state, loading: true };
+  case 'FETCH_USERS_SUCCESS': return { ...state, results, loading: false };
+  case 'FETCH_USERS_FAILURE': return { ...state, error, loading: false };
   default: return state;
   }
 };
