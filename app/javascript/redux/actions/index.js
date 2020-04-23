@@ -8,10 +8,13 @@ const fetchUsersSuccess = results => ({ type: 'FETCH_USERS_SUCCESS', results });
 
 const fetchUsersFailure = error => ({ type: 'FETCH_USERS_FAILURE', error });
 
+const setSelectedUser = id => ({ type: 'SET_SELECTED_USER', selectedUserID: id });
+
 export default {
   searchValueChange,
   fetchUsers,
   fetchUsersBegin,
   fetchUsersSuccess,
-  fetchUsersFailure
+  fetchUsersFailure,
+  setSelectedUser
 };

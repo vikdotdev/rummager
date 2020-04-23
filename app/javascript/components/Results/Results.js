@@ -2,22 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
+import Result from './Result';
+import './Results.scss';
 
-const Results = ({ results, loading }) => {
-  const resultItems = !loading && results.data.map(result => {
-    return (
-      <div key={result.id}>
-        <div>{result.id}</div>
-        <div>{result.first_name}</div>
-        <div>{result.last_name}</div>
-        <div>{result.bio}</div>
-      </div>
-    );
+const Results = ({ results, loading, setSelectedUser }) => {
+  const resultItems = !loading && results.data.map(data => {
+    return (<Result key={data.id} {...data} setSelectedUser={setSelectedUser.bind(null, data.id)} />);
   });
 
   return (
-    <div>
-      { loading && <Loader type='TailSpin' /> }
+    <div className='user-list'>
+      { loading && <Loader type='TailSpin' color='#ddd' className='spinner' /> }
       { resultItems.length ? resultItems : !loading && <div>No results</div> }
     </div>
   );
@@ -25,7 +20,8 @@ const Results = ({ results, loading }) => {
 
 Results.propTypes = {
   results: PropTypes.object,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  setSelectedUser: PropTypes.func
 };
 
 export default withRouter(Results);
