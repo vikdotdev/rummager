@@ -2,15 +2,43 @@ class User < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
-  settings do
-    mappings dynamic: 'false' do
-      indexes :first_name, analyzer: 'english'
-      indexes :last_name, analyzer: 'english'
-      indexes :bio, analyzer: 'english'
-    end
-  end
-
   validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :bio, length: { maximum: 500 }
+
+  ES_SETTINGS = {
+    analysis: {
+      analyzer: {
+        autocomplete: {
+          tokenizer: 'autocomplete',
+          filter: ['lowercase']
+        }
+      },
+      tokenizer: {
+        autocomplete: {
+          type: 'edge_ngram',
+          min_gram: 2,
+          max_gram: 10,
+          token_chars: ['letter']
+        }
+      }
+    }
+  }
+
+  settings ES_SETTINGS do
+    mappings dynamic: 'false' do
+      indexes :first_name,
+        type: 'text',
+        analyzer: 'autocomplete',
+        search_analyzer: 'standard'
+      indexes :last_name,
+        type: 'text',
+        analyzer: 'autocomplete',
+        search_analyzer: 'standard'
+      # indexes :bio,
+      #   type: 'text',
+      #   analyzer: 'autocomplete',
+      #   search_analyzer: 'standard'
+    end
+  end
 end
