@@ -1,5 +1,5 @@
 const defaultState = {
-  keywords: [],
+  keywords: '',
   results: { data: [] },
   loading: false,
   error: '',

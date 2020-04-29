@@ -25,6 +25,6 @@ class Api::UsersController < ActionController::API
   end
 
   def keywords
-    params[:keywords].join(' ')
+    params[:keywords]
   end
 end
