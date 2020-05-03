@@ -2,12 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import Result from './Result';
+import UserResult from './UserResult';
+import ProjectResult from './ProjectResult';
 import './Results.scss';
 
 const Results = ({ results, loading, setSelectedUser }) => {
-  const resultItems = !loading && results.data.map(data => {
-    return (<Result key={data.id} {...data} setSelectedUser={setSelectedUser.bind(null, data.id)} />);
+  const resultItems = !loading && results.data.map(result => {
+    const key = `${result.type}-${result.id}`;
+
+    switch(result.type) {
+    case 'User':
+      return (
+        <UserResult
+          key={key}
+          {...result}
+          setSelectedUser={setSelectedUser.bind(null, result.id)}
+        />
+      );
+    case 'Project':
+      return (
+        <ProjectResult
+          key={key}
+          {...result}
+        />
+      );
+    }
   });
 
   return (

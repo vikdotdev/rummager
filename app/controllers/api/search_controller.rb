@@ -6,7 +6,9 @@ class Api::SearchController < ApplicationController
   end
 
   def autocomplete
-    @hints = User.search(query(analyzer: 'autocomplete', size: 10)).results
+    @hints = Elasticsearch::Model.search(
+      query(analyzer: 'autocomplete', size: 10)
+    ).results
   end
 
   private

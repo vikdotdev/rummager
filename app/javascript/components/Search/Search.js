@@ -9,15 +9,15 @@ const Search = ({
   keywords,
   suggestions,
   updateInput,
-  fetchUsers,
-  fetchSuggestions,
+  fetchAll,
+  fetchAllSuggestions,
   clearSuggestions,
   history,
   location
 }) => {
   const startSearch = () => {
     if (keywords.length) {
-      fetchUsers();
+      fetchAll();
 
       const path = '/results';
       location.pathname !== path && history.push(path);
@@ -25,20 +25,26 @@ const Search = ({
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
-    fetchSuggestions(value);
+    fetchAllSuggestions(value);
   };
 
-  const getSuggestionValue = sug => {
-    return `${sug.first_name} ${sug.last_name}`;
+  const getSuggestionValue = suggestion => {
+    console.log(suggestion);
+    switch(suggestion.type) {
+    case 'User': return `${suggestion.first_name} ${suggestion.last_name}`;
+    case 'Project': return suggestion.name;
+    }
   };
 
   const renderSuggestion = sug => {
-    const full_name = `${sug.first_name} ${sug.last_name}`;
-    return (
-      <div value={full_name}>
-        {full_name}
-      </div>
-    );
+    switch(sug.type) {
+    case 'User':
+      const full_name = `${sug.first_name} ${sug.last_name}`;
+
+      return (<div value={full_name}>{full_name}</div>);
+    case 'Project':
+      return (<div value={sug.name}>{sug.name}</div>);
+    }
   };
 
   const onChange = (e, { newValue, method }) => {
@@ -70,8 +76,8 @@ Search.propTypes = {
   keywords: PropTypes.string,
   suggestions: PropTypes.array,
   updateInput: PropTypes.func,
-  fetchUsers: PropTypes.func,
-  fetchSuggestions: PropTypes.func,
+  fetchAll: PropTypes.func,
+  fetchAllSuggestions: PropTypes.func,
   clearSuggestions: PropTypes.func,
   history: PropTypes.object,
   location: PropTypes.object

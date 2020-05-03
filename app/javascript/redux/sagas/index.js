@@ -3,44 +3,47 @@ import { put, takeLatest, all, select } from 'redux-saga/effects';
 
 import actions from '../actions';
 
-function* fetchUsers() {
+function* fetchAll() {
   const keywords = yield select(state => state.search.keywords);
 
-  yield put(actions.fetchUsersBegin());
+  yield put(actions.fetchAllBegin());
 
   try {
     const response = yield axios.get(
-      'api/users.json',
+      'api/search.json',
       { params: { keywords }}
     );
-    yield put(actions.fetchUsersSuccess(response.data));
+    yield put(actions.fetchAllSuccess(response.data));
   } catch (e) {
-    yield put(actions.fetchUsersFailure(e.message));
+    yield put(actions.fetchAllFailure(e.message));
   }
 }
 
-function* watchFetchUsers() {
-  yield takeLatest('FETCH_USERS', fetchUsers);
-}
-
-function* fetchSuggestions() {
+function* fetchAllSuggestions() {
   const keywords = yield select(state => state.search.keywords);
 
   try {
     const response = yield axios.get(
-      'api/users/autocomplete.json',
+      'api/search/autocomplete.json',
       { params: { keywords }}
     );
-    yield put(actions.fetchSuggestionsSuccess(response.data.data));
+    yield put(actions.fetchAllSuggestionsSuccess(response.data.data));
   } catch (e) {
-    yield put(actions.fetchSuggestionsFailure(e.message));
+    yield put(actions.fetchAllSuggestionsFailure(e.message));
   }
 }
 
-function* watchFetchSuggestions() {
-  yield takeLatest('FETCH_SUGGESTIONS', fetchSuggestions);
+function* watchFetchAll() {
+  yield takeLatest('FETCH_ALL', fetchAll);
+}
+
+function* watchFetchAllSuggestions() {
+  yield takeLatest('FETCH_ALL_SUGGESTIONS', fetchAllSuggestions);
 }
 
 export default function* rootSaga() {
-  yield all([ watchFetchUsers(), watchFetchSuggestions() ]);
+  yield all([
+    watchFetchAll(),
+    watchFetchAllSuggestions()
+  ]);
 }
