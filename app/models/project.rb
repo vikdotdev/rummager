@@ -1,10 +1,10 @@
-class User < ApplicationRecord
+class Project < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
-  validates :first_name, presence: true, length: { minimum: 2, maximum: 50 }
-  validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
-  validates :bio, length: { maximum: 500 }
+  validates :name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :description, length: { maximum: 500 }
+  validates :rating, length: { minimum: 1, maximum: 10 }
 
   ES_SETTINGS = {
     analysis: {
@@ -27,14 +27,11 @@ class User < ApplicationRecord
 
   settings ES_SETTINGS do
     mappings dynamic: 'false' do
-      indexes :first_name,
+      indexes :name,
         type: 'text',
         analyzer: 'autocomplete',
         search_analyzer: 'standard'
-      indexes :last_name,
-        type: 'text',
-        analyzer: 'autocomplete',
-        search_analyzer: 'standard'
+      indexes :rating
     end
   end
 
