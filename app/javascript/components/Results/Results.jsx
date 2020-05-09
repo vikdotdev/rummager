@@ -6,7 +6,7 @@ import UserResult from './UserResult';
 import ProjectResult from './ProjectResult';
 import './Results.scss';
 
-const Results = ({ results, loading, setSelectedUser }) => {
+const Results = ({ results, loading, setSelectedResult }) => {
   const resultItems = !loading && results.data.map(result => {
     const key = `${result.type}-${result.id}`;
 
@@ -16,7 +16,7 @@ const Results = ({ results, loading, setSelectedUser }) => {
         <UserResult
           key={key}
           {...result}
-          setSelectedUser={setSelectedUser.bind(null, result.id)}
+          setSelectedResult={setSelectedResult.bind(null, result.id)}
         />
       );
     case 'Project':
@@ -24,6 +24,7 @@ const Results = ({ results, loading, setSelectedUser }) => {
         <ProjectResult
           key={key}
           {...result}
+          setSelectedResult={setSelectedResult.bind(null, result.id)}
         />
       );
     }
@@ -40,7 +41,7 @@ const Results = ({ results, loading, setSelectedUser }) => {
 Results.propTypes = {
   results: PropTypes.object,
   loading: PropTypes.bool,
-  setSelectedUser: PropTypes.func
+  setSelectedResult: PropTypes.func
 };
 
 export default withRouter(Results);
