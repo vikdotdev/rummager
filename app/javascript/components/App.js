@@ -20,8 +20,8 @@ const App = ({
   error,
   selectedUserID,
   updateInput,
-  fetchUsers,
-  fetchSuggestions,
+  fetchAll,
+  fetchAllSuggestions,
   clearSuggestions,
   setSelectedUser
 }) => (
@@ -33,8 +33,8 @@ const App = ({
             keywords={keywords}
             suggestions={suggestions}
             updateInput={updateInput}
-            fetchUsers={fetchUsers}
-            fetchSuggestions={fetchSuggestions}
+            fetchAll={fetchAll}
+            fetchAllSuggestions={fetchAllSuggestions}
             clearSuggestions={clearSuggestions}
           />
         </Route>
@@ -43,8 +43,8 @@ const App = ({
             keywords={keywords}
             suggestions={suggestions}
             updateInput={updateInput}
-            fetchUsers={fetchUsers}
-            fetchSuggestions={fetchSuggestions}
+            fetchAll={fetchAll}
+            fetchAllSuggestions={fetchAllSuggestions}
             clearSuggestions={clearSuggestions}
           />
           <Results loading={loading} results={results} setSelectedUser={setSelectedUser} />
@@ -60,13 +60,14 @@ const App = ({
 
 App.propTypes = {
   keywords: PropTypes.string,
+  suggestions: PropTypes.array,
   results: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.string,
   selectedUserID: PropTypes.string,
   updateInput: PropTypes.func,
-  fetchUsers: PropTypes.func,
-  fetchSuggestions: PropTypes.func,
+  fetchAll: PropTypes.func,
+  fetchAllSuggestions: PropTypes.func,
   clearSuggestions: PropTypes.func,
   setSelectedUser: PropTypes.func
 };
@@ -82,8 +83,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateInput: keywords => dispatch(actions.searchValueChange(keywords)),
-  fetchUsers: () => dispatch(actions.fetchUsers()),
-  fetchSuggestions: () => dispatch(actions.fetchSuggestions()),
+  fetchAll: () => dispatch(actions.fetchAll()),
+  fetchAllSuggestions: () => dispatch(actions.fetchAllSuggestions()),
   clearSuggestions: () => dispatch(actions.clearSuggestions()),
   setSelectedUser: id => dispatch(actions.setSelectedUser(id))
 });

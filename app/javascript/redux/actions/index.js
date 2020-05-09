@@ -1,40 +1,42 @@
+// FETCHING
+// ALL
+const fetchAll = () => ({ type: 'FETCH_ALL' });
+const fetchAllBegin = () => ({ type: 'FETCH_ALL_BEGIN' });
+const fetchAllSuccess = results => ({ type: 'FETCH_ALL_SUCCESS', results });
+const fetchAllFailure = error => ({ type: 'FETCH_ALL_FAILURE', error });
+
+// SUGGESTIONS
+// ALL
+const fetchAllSuggestions = () => ({ type: 'FETCH_ALL_SUGGESTIONS' });
+const fetchAllSuggestionsSuccess = suggestions => ({
+  type: 'FETCH_ALL_SUGGESTIONS_SUCCESS',
+  suggestions
+});
+const fetchAllSuggestionsFailure = error => ({
+  type: 'FETCH_ALL_SUGGESTIONS_FAILURE',
+  error
+});
+
+// is applicable to every kind of suggestion, is used in
+// Autosuggest component
+const clearSuggestions = () => ({ type: 'CLEAR_SUGGESTIONS' });
+
+// MISC
 const searchValueChange = keywords => ({
   type: 'SEARCH_VALUE_CHANGE', keywords
 });
 
-const fetchUsers = () => ({ type: 'FETCH_USERS' });
-
-const fetchUsersBegin = () => ({ type: 'FETCH_USERS_BEGIN' });
-
-const fetchUsersSuccess = results => ({ type: 'FETCH_USERS_SUCCESS', results });
-
-const fetchUsersFailure = error => ({ type: 'FETCH_USERS_FAILURE', error });
-
 const setSelectedUser = id => ({ type: 'SET_SELECTED_USER', selectedUserID: id });
 
-const fetchSuggestions = () => ({ type: 'FETCH_SUGGESTIONS' });
-
-const fetchSuggestionsSuccess = suggestions => ({
-  type: 'FETCH_SUGGESTIONS_SUCCESS',
-  suggestions
-});
-
-const fetchSuggestionsFailure = error => ({
-  type: 'FETCH_SUGGESTIONS_FAILURE',
-  error
-});
-
-const clearSuggestions = () => ({ type: 'CLEAR_SUGGESTIONS' });
-
 export default {
+  fetchAll,
+  fetchAllBegin,
+  fetchAllSuccess,
+  fetchAllFailure,
+  fetchAllSuggestions,
+  fetchAllSuggestionsSuccess,
+  fetchAllSuggestionsFailure,
+  clearSuggestions,
   searchValueChange,
-  fetchUsers,
-  fetchUsersBegin,
-  fetchUsersSuccess,
-  fetchUsersFailure,
-  setSelectedUser,
-  fetchSuggestions,
-  fetchSuggestionsSuccess,
-  fetchSuggestionsFailure,
-  clearSuggestions
+  setSelectedUser
 };
