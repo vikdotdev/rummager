@@ -1,7 +1,6 @@
 # TODO
 * check out ES aggregations (like filters in rozetka)
-* DOING sidebar for project
-* DOING inline edit in sidebar
+* inline edit in sidebar
 * highlighting
 * full text queries in ES match, multi_match, _all
 * add cucumber integration test
@@ -11,3 +10,4 @@
 
 # DONE
 * move search logic to a service
+* sidebar for project
