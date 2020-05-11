@@ -18,12 +18,12 @@ const App = ({
   suggestions,
   loading,
   error,
-  selectedUserID,
+  selectedResultID,
   updateInput,
   fetchAll,
   fetchAllSuggestions,
   clearSuggestions,
-  setSelectedUser
+  setSelectedResult
 }) => (
   <div className='container'>
     <Router>
@@ -47,8 +47,16 @@ const App = ({
             fetchAllSuggestions={fetchAllSuggestions}
             clearSuggestions={clearSuggestions}
           />
-          <Results loading={loading} results={results} setSelectedUser={setSelectedUser} />
-          <Sidebar results={results} selectedUserID={selectedUserID} setSelectedUser={setSelectedUser}/>
+          <Results
+            loading={loading}
+            results={results}
+            setSelectedResult={setSelectedResult}
+          />
+          <Sidebar
+            results={results}
+            selectedResultID={selectedResultID}
+            setSelectedResult={setSelectedResult}
+          />
         </Route>
         <Route to='/'>
           <Redirect to="/search" />
@@ -64,12 +72,12 @@ App.propTypes = {
   results: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.string,
-  selectedUserID: PropTypes.string,
+  selectedResultID: PropTypes.string,
   updateInput: PropTypes.func,
   fetchAll: PropTypes.func,
   fetchAllSuggestions: PropTypes.func,
   clearSuggestions: PropTypes.func,
-  setSelectedUser: PropTypes.func
+  setSelectedResult: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -78,7 +86,7 @@ const mapStateToProps = state => ({
   results: state.search.results,
   loading: state.search.loading,
   error: state.search.error,
-  selectedUserID: state.search.selectedUserID
+  selectedResultID: state.sidebar.selectedResultID
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -86,7 +94,7 @@ const mapDispatchToProps = dispatch => ({
   fetchAll: () => dispatch(actions.fetchAll()),
   fetchAllSuggestions: () => dispatch(actions.fetchAllSuggestions()),
   clearSuggestions: () => dispatch(actions.clearSuggestions()),
-  setSelectedUser: id => dispatch(actions.setSelectedUser(id))
+  setSelectedResult: id => dispatch(actions.setSelectedResult(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

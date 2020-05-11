@@ -26,7 +26,10 @@ const searchValueChange = keywords => ({
   type: 'SEARCH_VALUE_CHANGE', keywords
 });
 
-const setSelectedUser = id => ({ type: 'SET_SELECTED_USER', selectedUserID: id });
+const setSelectedResult = id => ({
+  type: 'SET_SIDEBAR_SELECTED_RESULT',
+  selectedResultID: id
+});
 
 export default {
   fetchAll,
@@ -38,5 +41,5 @@ export default {
   fetchAllSuggestionsFailure,
   clearSuggestions,
   searchValueChange,
-  setSelectedUser
+  setSelectedResult
 };

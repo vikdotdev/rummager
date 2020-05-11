@@ -29,7 +29,6 @@ const Search = ({
   };
 
   const getSuggestionValue = suggestion => {
-    console.log(suggestion);
     switch(suggestion.type) {
     case 'User': return `${suggestion.first_name} ${suggestion.last_name}`;
     case 'Project': return suggestion.name;
