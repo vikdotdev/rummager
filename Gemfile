@@ -12,6 +12,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'bonsai-elasticsearch-rails'
+gem 'factory_bot_rails'
+gem 'faker'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Active Storage variant
@@ -23,8 +25,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry', '~> 0.12.2'
   gem 'rspec-rails', '~> 4.0.0.beta'
-  gem 'factory_bot_rails'
-  gem 'faker'
 end
 
 group :development do
