@@ -11,6 +11,7 @@ gem 'react-rails'
 gem 'jbuilder', '~> 2.7'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem 'bonsai-elasticsearch-rails'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Active Storage variant
