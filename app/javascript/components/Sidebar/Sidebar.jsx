@@ -1,9 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { ContentEditable } from '../ContentEditable';
+
 import './Sidebar.scss';
 
-const Sidebar = ({ results, selectedResultID, setSelectedResult }) => {
+const Sidebar = ({
+  results,
+  selectedResultID,
+  setSelectedResult,
+  editing,
+  toggleEditing,
+  currentDomNode,
+  editedValue,
+  setCurrentDomNode,
+}) => {
   const closeSidebar = setSelectedResult.bind(null, null);
   const result = results.data.find(result => result.id == selectedResultID);
 
@@ -26,8 +37,17 @@ const Sidebar = ({ results, selectedResultID, setSelectedResult }) => {
   };
 
   const UserContents = () => {
+    const EditableP = ContentEditable('p');
+
     return (
       <Shared>
+        <EditableP
+          editing={editing}
+          toggleEditing={toggleEditing}
+          currentDomNode={currentDomNode}
+          setCurrentDomNode={setCurrentDomNode}
+          editedValue={editedValue}
+        />
         <div className='info'>
           <span className='id'>
             #{result.id}
@@ -62,7 +82,12 @@ const Sidebar = ({ results, selectedResultID, setSelectedResult }) => {
 Sidebar.propTypes = {
   results: PropTypes.shape({ data: PropTypes.array }),
   selectedResultID: PropTypes.string,
-  setSelectedResult: PropTypes.func
+  setSelectedResult: PropTypes.func,
+  editing: PropTypes.bool,
+  toggleEditing: PropTypes.func,
+  currentDomNode: PropTypes.object,
+  editedValue: PropTypes.string,
+  setCurrentDomNode: PropTypes.func
 };
 
 export default Sidebar;

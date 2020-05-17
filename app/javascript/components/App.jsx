@@ -23,7 +23,12 @@ const App = ({
   fetchAll,
   fetchAllSuggestions,
   clearSuggestions,
-  setSelectedResult
+  setSelectedResult,
+  editing,
+  toggleEditing,
+  currentDomNode,
+  editedValue,
+  setCurrentDomNode
 }) => (
   <div className='container'>
     <Router>
@@ -56,6 +61,11 @@ const App = ({
             results={results}
             selectedResultID={selectedResultID}
             setSelectedResult={setSelectedResult}
+            editing={editing}
+            toggleEditing={toggleEditing}
+            currentDomNode={currentDomNode}
+            editedValue={editedValue}
+            setCurrentDomNode={setCurrentDomNode}
           />
         </Route>
         <Route to='/'>
@@ -77,7 +87,12 @@ App.propTypes = {
   fetchAll: PropTypes.func,
   fetchAllSuggestions: PropTypes.func,
   clearSuggestions: PropTypes.func,
-  setSelectedResult: PropTypes.func
+  setSelectedResult: PropTypes.func,
+  editing: PropTypes.bool,
+  toggleEditing: PropTypes.func,
+  currentDomNode: PropTypes.object,
+  editedValue: PropTypes.string,
+  setCurrentDomNode: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -86,7 +101,10 @@ const mapStateToProps = state => ({
   results: state.search.results,
   loading: state.search.loading,
   error: state.search.error,
-  selectedResultID: state.sidebar.selectedResultID
+  selectedResultID: state.sidebar.selectedResultID,
+  editing: state.sidebar.editing,
+  currentDomNode: state.sidebar.currentDomNode,
+  editedValue: state.sidebar.editedValue,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -94,7 +112,9 @@ const mapDispatchToProps = dispatch => ({
   fetchAll: () => dispatch(actions.fetchAll()),
   fetchAllSuggestions: () => dispatch(actions.fetchAllSuggestions()),
   clearSuggestions: () => dispatch(actions.clearSuggestions()),
-  setSelectedResult: id => dispatch(actions.setSelectedResult(id))
+  setSelectedResult: id => dispatch(actions.setSelectedResult(id)),
+  toggleEditing: () => dispatch(actions.toggleEditing()),
+  setCurrentDomNode: node => dispatch(actions.setCurrentDomNode(node))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

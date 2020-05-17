@@ -21,14 +21,24 @@ const fetchAllSuggestionsFailure = error => ({
 // Autosuggest component
 const clearSuggestions = () => ({ type: 'CLEAR_SUGGESTIONS' });
 
+// SIDEBAR
+const setSelectedResult = id => ({
+  type: 'SET_SIDEBAR_SELECTED_RESULT',
+  selectedResultID: id
+});
+
+
 // MISC
 const searchValueChange = keywords => ({
   type: 'SEARCH_VALUE_CHANGE', keywords
 });
 
-const setSelectedResult = id => ({
-  type: 'SET_SIDEBAR_SELECTED_RESULT',
-  selectedResultID: id
+const toggleEditing = () => ({
+  type: 'TOGGLE_EDITING'
+});
+
+const setCurrentDomNode = currentDomNode => ({
+  type: 'SET_CURRENT_DOM_NODE', currentDomNode
 });
 
 export default {
@@ -41,5 +51,7 @@ export default {
   fetchAllSuggestionsFailure,
   clearSuggestions,
   searchValueChange,
-  setSelectedResult
+  setSelectedResult,
+  toggleEditing,
+  setCurrentDomNode
 };
