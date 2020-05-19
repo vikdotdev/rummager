@@ -41,4 +41,8 @@ class User < ApplicationRecord
   def self.search_fields
     mappings.to_hash[:properties].keys
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

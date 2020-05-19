@@ -31,7 +31,7 @@ class Project < ApplicationRecord
         type: 'text',
         analyzer: 'autocomplete',
         search_analyzer: 'standard'
-      indexes :rating
+      # indexes :rating
     end
   end
 
