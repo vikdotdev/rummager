@@ -8,11 +8,10 @@
 * create "stats" page which will list of top 10 projects, and top 10 users
 
 # DOING
-* api specs
-* inline edit
 * watching ES course
 
 # DONE
+* api specs
 * fix heroku assets(css add to layout)
 
 # ES ERRORS
