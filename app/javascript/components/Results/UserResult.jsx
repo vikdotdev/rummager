@@ -1,13 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { highlightFor } from '../../util/highlight';
+
 import './UserResult.scss';
 
-const UserResult = ({ id, type, first_name, last_name, bio, setSelectedResult }) => {
+const UserResult = ({ result, setSelectedResult }) => {
+  const { id, type, bio } = result;
+
   return (
     <div className='user-result' onClick={setSelectedResult}>
       <h1 className='title'>
-        <span className='id'>#{id}</span> {first_name} {last_name}
-        <span className='id'>{` ${type}`}</span>
+        <span className='id'>#{id}</span>
+        <span className="name">
+          {highlightFor({ result, field: 'first_name' })} {highlightFor({ result, field: 'last_name' })}
+        </span>
+        <span className='type'>{type}</span>
       </h1>
       <p className='bio'>{bio}</p>
     </div>

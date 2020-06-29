@@ -22,7 +22,8 @@ class EsQueryService
     {
       size:         @params[:size],
       query:        query_params,
-      aggregations: aggregations
+      aggregations: aggregations,
+      highlight:    highlight
     }.compact
   end
 
@@ -41,6 +42,15 @@ class EsQueryService
     {}
   end
 
+  def highlight
+    {
+      pre_tags:  ["<em class='hl'>"],
+      post_tags: ["</em>"],
+      number_of_fragments: 0,
+      fields: highlight_fields
+    }
+  end
+
   def default_params
     {
       analyzer: nil,
@@ -51,5 +61,9 @@ class EsQueryService
 
   def combine_search_fields
     MODELS_TO_SEARCH.map { |model| model.search_fields }.flatten.uniq
+  end
+
+  def highlight_fields
+    combine_search_fields.reduce({}) { |memo, field| memo.merge(field => {}) }
   end
 end

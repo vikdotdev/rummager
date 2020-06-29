@@ -15,7 +15,7 @@ const Results = ({ results, loading, setSelectedResult }) => {
       return (
         <UserResult
           key={key}
-          {...result}
+          result={result}
           setSelectedResult={setSelectedResult.bind(null, result.id)}
         />
       );
@@ -23,7 +23,7 @@ const Results = ({ results, loading, setSelectedResult }) => {
       return (
         <ProjectResult
           key={key}
-          {...result}
+          result={result}
           setSelectedResult={setSelectedResult.bind(null, result.id)}
         />
       );
