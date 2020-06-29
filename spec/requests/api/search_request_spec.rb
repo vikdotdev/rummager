@@ -62,22 +62,22 @@ RSpec.describe Api::SearchController, :elasticsearch, type: :request do
     end
 
     it 'returns correct result count' do
-      result_json = [
-        {
-          first_name: user_1.first_name,
-          id:         user_1.id.to_s,
-          last_name:  user_1.last_name,
-          type:       user_1.class.to_s,
-        }.with_indifferent_access,
-        {
-          id:     project_1.id.to_s,
-          name:   project_1.name,
-          # rating: project_1.rating,
-          type:   project_1.class.to_s
-        }.with_indifferent_access
-      ]
+      user_result = {
+        first_name: user_1.first_name,
+        id:         user_1.id.to_s,
+        last_name:  user_1.last_name,
+        type:       user_1.class.to_s,
+      }.with_indifferent_access
+      project_result = {
+        id:     project_1.id.to_s,
+        name:   project_1.name,
+        # rating: project_1.rating,
+        type:   project_1.class.to_s
+      }.with_indifferent_access
 
-      expect(subject).to contain_exactly(*result_json)
+      expect(subject).to match(a_collection_including(
+                                 a_hash_including(user_result),
+                                 a_hash_including(project_result)))
     end
   end
 end

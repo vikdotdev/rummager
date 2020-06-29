@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Autosuggest from 'react-autosuggest';
 
+import { highlightFor } from '../../util/highlight';
+
 import './Search.scss';
 
 const Search = ({
@@ -35,14 +37,20 @@ const Search = ({
     }
   };
 
-  const renderSuggestion = sug => {
-    switch(sug.type) {
+  const renderSuggestion = (suggestion) => {
+    switch(suggestion.type) {
     case 'User':
-      const full_name = `${sug.first_name} ${sug.last_name}`;
-
-      return (<div value={full_name}>{full_name}</div>);
+      return (
+        <div value={`${suggestion.first_name} ${suggestion.last_name}`}>
+          {highlightFor({ result: suggestion, field: 'first_name' })} {highlightFor({ result: suggestion, field: 'last_name' })}
+        </div>
+      );
     case 'Project':
-      return (<div value={sug.name}>{sug.name}</div>);
+      return (
+        <div value={suggestion.name}>
+          {highlightFor({ result: suggestion, field: 'name' })}
+        </div>
+      );
     }
   };
 
