@@ -6,6 +6,9 @@ class Project < ApplicationRecord
   validates :description, length: { maximum: 500 }
   validates :rating, length: { minimum: 1, maximum: 10 }
 
+  ES_TEXT_FIELDS = %i[name]
+  ES_AGGS_FIELDS = %i[rating]
+
   ES_SETTINGS = {
     analysis: {
       analyzer: {
@@ -28,10 +31,11 @@ class Project < ApplicationRecord
   settings ES_SETTINGS do
     mappings dynamic: 'false' do
       indexes :name,
-        type: 'text',
-        analyzer: 'autocomplete',
-        search_analyzer: 'standard'
-      # indexes :rating
+              type: 'text',
+              analyzer: 'autocomplete',
+              search_analyzer: 'standard'
+      indexes :rating,
+              type: 'integer'
     end
   end
 

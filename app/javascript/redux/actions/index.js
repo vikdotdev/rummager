@@ -21,6 +21,10 @@ const fetchAllSuggestionsFailure = error => ({
 // Autosuggest component
 const clearSuggestions = () => ({ type: 'CLEAR_SUGGESTIONS' });
 
+// FILTERS
+const filterResultType = resultTypes => ({ type: 'FILTER_RESULT_TYPE', resultTypes });
+const filterRating = ratingRange => ({ type: 'FILTER_RATING', ratingRange });
+
 // MISC
 const searchValueChange = keywords => ({
   type: 'SEARCH_VALUE_CHANGE', keywords
@@ -40,6 +44,8 @@ export default {
   fetchAllSuggestionsSuccess,
   fetchAllSuggestionsFailure,
   clearSuggestions,
+  filterResultType,
+  filterRating,
   searchValueChange,
   setSelectedResult
 };

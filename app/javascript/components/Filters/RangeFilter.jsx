@@ -1,0 +1,33 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import InputRange from 'react-input-range';
+
+import actions from '../../redux/actions';
+
+import 'react-input-range/lib/css/index.css';
+
+const RangeFilter = ({ ratingRange, ratingRangeThreshold, fetchAll, filterRating }) => {
+  console.log(ratingRange)
+
+  return (
+    <InputRange
+      minValue={ratingRangeThreshold.min}
+      maxValue={ratingRangeThreshold.max}
+      value={ratingRange}
+      onChange={(ratingRange) => filterRating(ratingRange)}
+      onChangeComplete={() => fetchAll()}
+    />
+  );
+};
+
+const mapStateToProps = state => ({
+  ratingRange: state.filters.ratingRange,
+  ratingRangeThreshold: state.filters.ratingRangeThreshold
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchAll: () => dispatch(actions.fetchAll()),
+  filterRating: ratingRange => dispatch(actions.filterRating(ratingRange))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RangeFilter);

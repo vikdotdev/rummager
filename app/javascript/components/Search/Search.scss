@@ -1,23 +1,9 @@
 @import '../colors';
 
-.grid {
-  display: grid;
-  grid-template-columns: 10fr 2fr;
-}
-
-.input-with-button-right {
-  input[type=search] {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-right: none;
-    font-size: 1.2rem;
-    font-weight: 300;
-  }
-
-  button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
+.input-props {
+  width: 100%;
+  height: 42px;
+  padding: 6px;
 }
 
 .react-autosuggest__container--open {
@@ -29,9 +15,8 @@
   }
 }
 
-
 .react-autosuggest__suggestions-container--open {
-  border: 1px solid #1eaedb;
+  border: 2px solid #007bff;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   border-top: transparent;
@@ -52,6 +37,7 @@
     margin: 0;
     top: 40px;
     background-color: white;
+    z-index: 100;
 
     .react-autosuggest__suggestions-list {
       width: 100%;
