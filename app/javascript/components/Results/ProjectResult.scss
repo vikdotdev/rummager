@@ -1,0 +1,27 @@
+
+dt {
+  &::after {
+    content: ':';
+  }
+}
+
+dl {
+  display: table;
+}
+
+dl > div {
+  display: table-row;
+}
+
+dl > div > dt,
+dl > div > dd {
+  display: table-cell;
+}
+
+dl > div > dt {
+  padding-right: 24px;
+}
+
+dl > div > dt {
+  font-weight: bold;
+}

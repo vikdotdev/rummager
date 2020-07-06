@@ -1,11 +1,15 @@
 class Api::SearchController < ApplicationController
   def index
-    @results = EsQueryService.new(params[:keywords]).search
+    @search = ElasticSearch::SearchService
+                 .new(params[:keywords], rating: JSON.parse(params[:rating]))
+                 .search
 
     render :index
   end
 
   def autocomplete
-    @hints = EsQueryService.new(params[:keywords], size: 10).autocomplete
+    @hints = ElasticSearch::SuggestionService
+               .new(params[:keywords], size: 10)
+               .search
   end
 end

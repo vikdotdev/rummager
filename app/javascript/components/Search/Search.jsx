@@ -64,18 +64,21 @@ const Search = ({
     placeholder: 'Search...',
     value: keywords,
     onChange: onChange,
-    onKeyPress: e => e.key == 'Enter' && startSearch()
+    onKeyPress: e => e.key == 'Enter' && startSearch(),
+    className: 'input-props'
   };
 
   return (
-    <Autosuggest
-      suggestions={suggestions}
-      onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-      onSuggestionsClearRequested={clearSuggestions}
-      getSuggestionValue={getSuggestionValue}
-      renderSuggestion={renderSuggestion}
-      inputProps={inputProps}
-    />
+    <div className="pt-5">
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={clearSuggestions}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+      />
+    </div>
   );
 };
 

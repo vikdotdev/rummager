@@ -31,7 +31,7 @@ const Results = ({ results, loading, setSelectedResult }) => {
   });
 
   return (
-    <div className='user-list'>
+    <div className='result-list'>
       { loading && <Loader type='TailSpin' color='#ddd' className='spinner' /> }
       { resultItems.length ? resultItems : !loading && <div>No results</div> }
     </div>

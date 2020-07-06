@@ -5,13 +5,16 @@ import actions from '../actions';
 
 function* fetchAll() {
   const keywords = yield select(state => state.search.keywords);
+  const rating = yield select(state => state.filters.ratingRange);
+  console.log(keywords);
+  console.log(rating);
 
   yield put(actions.fetchAllBegin());
 
   try {
     const response = yield axios.get(
       'api/search.json',
-      { params: { keywords }}
+      { params: { keywords, rating }}
     );
     yield put(actions.fetchAllSuccess(response.data));
   } catch (e) {

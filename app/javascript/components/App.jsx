@@ -8,8 +8,8 @@ import actions from '../redux/actions';
 import Search from './Search/Search';
 import Results from './Results/Results';
 import Sidebar from './Sidebar/Sidebar';
+import Filters from './Filters/Filters';
 
-import './spine.scss';
 import './App.scss';
 
 const App = ({
@@ -47,11 +47,21 @@ const App = ({
             fetchAllSuggestions={fetchAllSuggestions}
             clearSuggestions={clearSuggestions}
           />
-          <Results
-            loading={loading}
-            results={results}
-            setSelectedResult={setSelectedResult}
-          />
+
+          <div className="main-wrapper">
+            <div className="row">
+              <div className="col-4">
+                <Filters/>
+              </div>
+              <div className="col-8">
+                <Results
+                  loading={loading}
+                  results={results}
+                  setSelectedResult={setSelectedResult}
+                />
+              </div>
+            </div>
+          </div>
           <Sidebar
             results={results}
             selectedResultID={selectedResultID}

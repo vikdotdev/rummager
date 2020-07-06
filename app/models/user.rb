@@ -6,6 +6,9 @@ class User < ApplicationRecord
   validates :last_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :bio, length: { maximum: 500 }
 
+  ES_TEXT_FIELDS = %i[first_name last_name]
+  ES_AGGS_FIELDS = %i[rating]
+
   ES_SETTINGS = {
     analysis: {
       analyzer: {
