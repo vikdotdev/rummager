@@ -6,7 +6,7 @@ import { highlightFor } from '../../util/highlight';
 import './ProjectResult.scss';
 
 const ProjectResult = ({ result, setSelectedResult }) => {
-  const { id, type, description, rating } = result;
+  const { id, type, description, rating, category } = result;
 
   return (
     <div className='user-result' onClick={setSelectedResult}>
@@ -20,6 +20,10 @@ const ProjectResult = ({ result, setSelectedResult }) => {
         <div className="rating">
           <dt>Rating</dt>
           <dd>{rating}</dd>
+        </div>
+        <div className="rating">
+          <dt>Category</dt>
+          <dd>{category}</dd>
         </div>
       </dl>
     </div>

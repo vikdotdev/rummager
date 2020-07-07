@@ -1,25 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import actions from '../../redux/actions';
 
 import RangeFilter from './RangeFilter';
+import CategoryFilter from './CategoryFilter';
 
-const Filters = ({ results, loading }) => {
+const Filters = ({ results, stats, fetchStats }) => {
+  useEffect(() => { fetchStats() }, []);
+
   return (
-    <div className='card p-4'>
-      <RangeFilter />
-    </div>
+    stats && (
+      <div className='card p-4'>
+        <RangeFilter />
+        <CategoryFilter />
+      </div>
+    )
   );
 };
 
 const mapStateToProps = state => ({
   results: state.search.results,
-  loading: state.search.loading,
+  stats: state.filters.stats
 });
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = dispatch => ({
+  fetchStats: () => dispatch(actions.fetchStats())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

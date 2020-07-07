@@ -1,8 +1,19 @@
 class ElasticSearch::SearchService < ElasticSearch::Base
+  include ElasticSearch::Filters
+
   def search
     Elasticsearch::Model
       .search(query, ElasticSearch::Base::MODELS_TO_SEARCH)
-      # .results
+  end
+
+  def stats
+    params = {
+      size:         0,
+      aggregations: aggregations
+    }.compact
+
+    Elasticsearch::Model
+      .search(params, ElasticSearch::Base::MODELS_TO_SEARCH)
   end
 
   protected
@@ -17,37 +28,22 @@ class ElasticSearch::SearchService < ElasticSearch::Base
   end
 
   def search_query
-    must = {
-      must: {
-        multi_match: multi_match
-      }
-    }
-
-    filter = {
-      filter: {
-        range: {
-          rating: {
-            gte: @params[:rating]['min'],
-            lte: @params[:rating]['max']
-          }
-        }
-      }
-    }
+    must = [
+      { multi_match: multi_match }.compact,
+      { terms: category_terms }.compact
+    ].delete_if(&:empty?)
 
     {
-      bool: {}.merge(must).merge(filter)
+      bool: {
+        must: must,
+        filter: rating_filter
+      }
     }
-
   end
 
   def aggregations
-    aggs_fields.reduce({}) do |memo, field|
+    keyword_fields = fields_of_type('keyword').reduce({}) do |memo, field|
       memo.merge({
-        "#{field}_stats" => {
-          stats: {
-            field: field
-          }
-        },
         "#{field}_distinct" => {
           terms: {
             field: field
@@ -55,5 +51,17 @@ class ElasticSearch::SearchService < ElasticSearch::Base
         }
       })
     end
+
+    integer_fields = fields_of_type('integer').reduce({}) do |memo, field|
+      memo.merge({
+        "#{field}_stats" => {
+          stats: {
+            field: field
+          }
+        }
+      })
+    end
+
+    keyword_fields.merge(integer_fields)
   end
 end

@@ -3,6 +3,7 @@ FactoryBot.define do
     name { Faker::Company.name }
     description { Faker::Lorem.paragraph }
     rating { rand(1..10) }
+    category { %i[internet tech marketing opensource].sample }
   end
 
   factory :user do

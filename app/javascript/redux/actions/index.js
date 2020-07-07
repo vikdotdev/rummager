@@ -24,6 +24,13 @@ const clearSuggestions = () => ({ type: 'CLEAR_SUGGESTIONS' });
 // FILTERS
 const filterResultType = resultTypes => ({ type: 'FILTER_RESULT_TYPE', resultTypes });
 const filterRating = ratingRange => ({ type: 'FILTER_RATING', ratingRange });
+const filterCategories = categories => ({ type: 'FILTER_CATEGORIES', categories });
+
+// STATS
+const fetchStats = () => ({ type: 'FETCH_STATS' });
+const fetchStatsBegin = () => ({ type: 'FETCH_STATS_BEGIN' });
+const fetchStatsSuccess = stats => ({ type: 'FETCH_STATS_SUCCESS', stats });
+const fetchStatsFailure = error => ({ type: 'FETCH_STATS_FAILURE', error });
 
 // MISC
 const searchValueChange = keywords => ({
@@ -46,6 +53,11 @@ export default {
   clearSuggestions,
   filterResultType,
   filterRating,
+  filterCategories,
+  fetchStats,
+  fetchStatsBegin,
+  fetchStatsSuccess,
+  fetchStatsFailure,
   searchValueChange,
   setSelectedResult
 };

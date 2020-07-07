@@ -7,7 +7,8 @@ class Project < ApplicationRecord
   validates :rating, length: { minimum: 1, maximum: 10 }
 
   ES_TEXT_FIELDS = %i[name]
-  ES_AGGS_FIELDS = %i[rating]
+  # ES_KEYWORD_FIELDS = %i[category]
+  # ES_INTEGER_FIELDS = %i[rating]
 
   ES_SETTINGS = {
     analysis: {
@@ -36,6 +37,8 @@ class Project < ApplicationRecord
               search_analyzer: 'standard'
       indexes :rating,
               type: 'integer'
+      indexes :category,
+              type: 'keyword'
     end
   end
 
