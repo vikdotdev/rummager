@@ -22,9 +22,7 @@ const filtersReducer = (
   case 'FILTER_RATING': return { ...state, ratingRange };
   case 'FILTER_CATEGORIES': return { ...state, categories };
   case 'FETCH_STATS_BEGIN': return { ...state, loading: true };
-  case 'FETCH_STATS_SUCCESS':
-    // const stats = {}
-    return { ...state, stats, loading: false };
+  case 'FETCH_STATS_SUCCESS': return { ...state, stats, loading: false };
   case 'FETCH_STATS_FAILURE': return { ...state, error, loading: false };
   default: return state;
   }

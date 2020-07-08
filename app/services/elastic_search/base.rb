@@ -36,14 +36,6 @@ class ElasticSearch::Base
     }
   end
 
-  # def text_fields
-  #   MODELS_TO_SEARCH.map { |model| model::ES_TEXT_FIELDS }.flatten.uniq
-  # end
-
-  # def aggs_fields
-  #   MODELS_TO_SEARCH.map { |model| model::ES_AGGS_FIELDS }.flatten.uniq
-  # end
-
   def fields_of_type(type)
     MODELS_TO_SEARCH.map do |model|
       model.mappings.to_hash[:properties].map do |key, value|
