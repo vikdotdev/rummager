@@ -20,12 +20,10 @@ const Search = ({
   location
 }) => {
   const startSearch = () => {
-    if (keywords.length) {
-      fetchAll();
+    fetchAll();
 
-      const path = '/results';
-      location.pathname !== path && history.push(path);
-    }
+    const path = '/results';
+    location.pathname !== path && history.push(path);
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
@@ -72,14 +70,21 @@ const Search = ({
 
   return (
     <div className="pt-5">
-      <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={clearSuggestions}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps}
-      />
+      <div className="row">
+        <div className="col-10">
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={clearSuggestions}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps}
+          />
+        </div>
+        <div className="col-2">
+          <button className="btn btn-outline-primary h-100 w-100" onClick={startSearch}>Search</button>
+        </div>
+      </div>
     </div>
   );
 };
