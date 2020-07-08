@@ -85,3 +85,56 @@ GET /users,projects/_search
     }
   }
 }
+
+
+GET /users,projects/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "multi_match": {
+            "query": "and",
+            "fields": ["name", "last_name"]
+          }
+        },
+        {
+          "terms": {
+            "category": ["opensource", "tech"]
+          }
+        }
+      ],
+      "filter": {
+        "range": {
+          "rating": {
+            "lt": 5
+          }
+        }
+      }
+    }
+  }
+}
+
+GET /users,projects/_search
+{
+  "size": 0,
+  "aggs": {
+    "rating_stats": {
+      "stats": {
+        "field": "rating"
+      }
+    },
+    "distinct_ratings": {
+      "terms": {
+        "field": "rating"
+      }
+    },
+    "distinct_categories": {
+      "terms": {
+        "field": "category"
+      }
+    }
+  }
+}
+
+GET /users,projects/_mappings

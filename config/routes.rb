@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :search, only: :index do
       get :autocomplete, on: :collection
+      get :stats, on: :collection
     end
   end
 

@@ -6,15 +6,15 @@ import actions from '../actions';
 function* fetchAll() {
   const keywords = yield select(state => state.search.keywords);
   const rating = yield select(state => state.filters.ratingRange);
-  console.log(keywords);
-  console.log(rating);
+  const categories = yield select(state => Array.from(state.filters.categories));
+  console.log(categories)
 
   yield put(actions.fetchAllBegin());
 
   try {
     const response = yield axios.get(
       'api/search.json',
-      { params: { keywords, rating }}
+      { params: { keywords, rating, categories }}
     );
     yield put(actions.fetchAllSuccess(response.data));
   } catch (e) {
@@ -36,6 +36,17 @@ function* fetchAllSuggestions() {
   }
 }
 
+function* fetchStats() {
+  yield put(actions.fetchStatsBegin());
+
+  try {
+    const response = yield axios.get('api/search/stats.json');
+    yield put(actions.fetchStatsSuccess(response.data));
+  } catch (e) {
+    yield put(actions.fetchStatsFailure(e.message));
+  }
+}
+
 function* watchFetchAll() {
   yield takeLatest('FETCH_ALL', fetchAll);
 }
@@ -44,9 +55,15 @@ function* watchFetchAllSuggestions() {
   yield takeLatest('FETCH_ALL_SUGGESTIONS', fetchAllSuggestions);
 }
 
+
+function* watchFetchStats() {
+  yield takeLatest('FETCH_STATS', fetchStats);
+}
+
 export default function* rootSaga() {
   yield all([
     watchFetchAll(),
-    watchFetchAllSuggestions()
+    watchFetchAllSuggestions(),
+    watchFetchStats()
   ]);
 }

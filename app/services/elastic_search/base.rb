@@ -1,7 +1,7 @@
 class ElasticSearch::Base
   MODELS_TO_SEARCH = [User, Project].freeze
 
-  def initialize(keywords, params = {})
+  def initialize(keywords = '', params = {})
     @keywords = keywords
     @params = default_params.merge(params)
   end
@@ -17,11 +17,13 @@ class ElasticSearch::Base
   end
 
   def multi_match
+    return if @keywords.blank?
+
     {
       query:     @keywords,
       analyzer:  @params[:analyzer],
       fuzziness: @params[:fuzziness],
-      fields:    text_fields
+      fields:    fields_of_type('text')
     }.compact
   end
 
@@ -30,15 +32,15 @@ class ElasticSearch::Base
       pre_tags:  ["<em class='hl'>"],
       post_tags: ["</em>"],
       number_of_fragments: 0,
-      fields: text_fields.reduce({}) { |memo, field| memo.merge(field => {}) }
+      fields: fields_of_type('text').reduce({}) { |memo, field| memo.merge(field => {}) }
     }
   end
 
-  def text_fields
-    MODELS_TO_SEARCH.map { |model| model::ES_TEXT_FIELDS }.flatten.uniq
-  end
-
-  def aggs_fields
-    MODELS_TO_SEARCH.map { |model| model::ES_AGGS_FIELDS }.flatten.uniq
+  def fields_of_type(type)
+    MODELS_TO_SEARCH.map do |model|
+      model.mappings.to_hash[:properties].map do |key, value|
+        key if value[:type] == type
+      end.compact
+    end.flatten.uniq
   end
 end
