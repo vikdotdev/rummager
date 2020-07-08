@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
+
+import actions from '../../redux/actions';
+
 import UserResult from './UserResult';
 import ProjectResult from './ProjectResult';
+
 import './Results.scss';
 
 const Results = ({ results, loading, setSelectedResult }) => {
@@ -44,4 +49,13 @@ Results.propTypes = {
   setSelectedResult: PropTypes.func
 };
 
-export default withRouter(Results);
+const mapStateToProps = state => ({
+  results: state.search.results,
+  loading: state.search.loading
+});
+
+const mapDispatchToProps = dispatch => ({
+  setSelectedResult: id => dispatch(actions.setSelectedResult(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));

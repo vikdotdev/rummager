@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
 
+import actions from '../../redux/actions';
 import { highlightFor } from '../../util/highlight';
 
 import './Search.scss';
@@ -93,4 +95,20 @@ Search.propTypes = {
   location: PropTypes.object
 };
 
-export default withRouter(Search);
+const mapStateToProps = state => ({
+  keywords: state.search.keywords,
+  suggestions: state.suggestions.suggestions,
+  results: state.search.results,
+  loading: state.search.loading,
+  error: state.search.error,
+  selectedResultID: state.sidebar.selectedResultID
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateInput: keywords => dispatch(actions.searchValueChange(keywords)),
+  fetchAll: () => dispatch(actions.fetchAll()),
+  fetchAllSuggestions: () => dispatch(actions.fetchAllSuggestions()),
+  clearSuggestions: () => dispatch(actions.clearSuggestions())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Search));

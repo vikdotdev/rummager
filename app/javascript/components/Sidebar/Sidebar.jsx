@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import actions from '../../redux/actions';
 
 import './Sidebar.scss';
 
@@ -65,4 +68,14 @@ Sidebar.propTypes = {
   setSelectedResult: PropTypes.func
 };
 
-export default Sidebar;
+const mapStateToProps = state => ({
+  results: state.search.results,
+  loading: state.search.loading,
+  selectedResultID: state.sidebar.selectedResultID
+});
+
+const mapDispatchToProps = dispatch => ({
+  setSelectedResult: id => dispatch(actions.setSelectedResult(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
