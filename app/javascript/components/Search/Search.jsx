@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
 
+import actions from '../../redux/actions';
 import { highlightFor } from '../../util/highlight';
 
 import './Search.scss';
@@ -18,12 +20,10 @@ const Search = ({
   location
 }) => {
   const startSearch = () => {
-    if (keywords.length) {
-      fetchAll();
+    fetchAll();
 
-      const path = '/results';
-      location.pathname !== path && history.push(path);
-    }
+    const path = '/results';
+    location.pathname !== path && history.push(path);
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
@@ -70,14 +70,21 @@ const Search = ({
 
   return (
     <div className="pt-5">
-      <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={clearSuggestions}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps}
-      />
+      <div className="row">
+        <div className="col-10">
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={clearSuggestions}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps}
+          />
+        </div>
+        <div className="col-2">
+          <button className="btn btn-outline-primary h-100 w-100" onClick={startSearch}>Search</button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -93,4 +100,20 @@ Search.propTypes = {
   location: PropTypes.object
 };
 
-export default withRouter(Search);
+const mapStateToProps = state => ({
+  keywords: state.search.keywords,
+  suggestions: state.suggestions.suggestions,
+  results: state.search.results,
+  loading: state.search.loading,
+  error: state.search.error,
+  selectedResultID: state.sidebar.selectedResultID
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateInput: keywords => dispatch(actions.searchValueChange(keywords)),
+  fetchAll: () => dispatch(actions.fetchAll()),
+  fetchAllSuggestions: () => dispatch(actions.fetchAllSuggestions()),
+  clearSuggestions: () => dispatch(actions.clearSuggestions())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Search));

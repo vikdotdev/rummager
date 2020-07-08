@@ -7,7 +7,6 @@ function* fetchAll() {
   const keywords = yield select(state => state.search.keywords);
   const rating = yield select(state => state.filters.ratingRange);
   const categories = yield select(state => Array.from(state.filters.categories));
-  console.log(categories)
 
   yield put(actions.fetchAllBegin());
 
