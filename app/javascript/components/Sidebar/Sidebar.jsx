@@ -8,7 +8,7 @@ import './Sidebar.scss';
 
 const Sidebar = ({ results, selectedResultID, setSelectedResult }) => {
   const closeSidebar = setSelectedResult.bind(null, null);
-  const result = results.data.find(result => result.id == selectedResultID);
+  const result = results.find(result => result.id == selectedResultID);
 
   const Shared = ({ children }) => {
     return (
@@ -63,7 +63,7 @@ const Sidebar = ({ results, selectedResultID, setSelectedResult }) => {
 };
 
 Sidebar.propTypes = {
-  results: PropTypes.shape({ data: PropTypes.array }),
+  results: PropTypes.array,
   selectedResultID: PropTypes.string,
   setSelectedResult: PropTypes.func
 };

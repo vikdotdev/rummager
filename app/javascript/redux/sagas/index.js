@@ -9,15 +9,21 @@ function* fetchAll() {
   const categories = yield select(state => Array.from(state.filters.categories));
 
   yield put(actions.fetchAllBegin());
+  yield put(actions.fetchStatsBegin());
 
   try {
     const response = yield axios.get(
       'api/search.json',
       { params: { keywords, rating, categories }}
     );
-    yield put(actions.fetchAllSuccess(response.data));
+    yield put(actions.fetchAllSuccess({
+      results: response.data.results,
+      aggs: response.data.aggs
+    }));
+    yield put(actions.fetchStatsSuccess(response.data.global_aggs));
   } catch (e) {
     yield put(actions.fetchAllFailure(e.message));
+    yield put(actions.fetchStatsFailure(e.message));
   }
 }
 
@@ -29,20 +35,9 @@ function* fetchAllSuggestions() {
       'api/search/autocomplete.json',
       { params: { keywords }}
     );
-    yield put(actions.fetchAllSuggestionsSuccess(response.data.data));
+    yield put(actions.fetchAllSuggestionsSuccess(response.data.suggestions));
   } catch (e) {
     yield put(actions.fetchAllSuggestionsFailure(e.message));
-  }
-}
-
-function* fetchStats() {
-  yield put(actions.fetchStatsBegin());
-
-  try {
-    const response = yield axios.get('api/search/stats.json');
-    yield put(actions.fetchStatsSuccess(response.data));
-  } catch (e) {
-    yield put(actions.fetchStatsFailure(e.message));
   }
 }
 
@@ -54,15 +49,9 @@ function* watchFetchAllSuggestions() {
   yield takeLatest('FETCH_ALL_SUGGESTIONS', fetchAllSuggestions);
 }
 
-
-function* watchFetchStats() {
-  yield takeLatest('FETCH_STATS', fetchStats);
-}
-
 export default function* rootSaga() {
   yield all([
     watchFetchAll(),
-    watchFetchAllSuggestions(),
-    watchFetchStats()
+    watchFetchAllSuggestions()
   ]);
 }

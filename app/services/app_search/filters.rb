@@ -4,16 +4,17 @@ module AppSearch
       {
         range: {
           rating: {
-            gte: @params[:rating]['min'],
-            lte: @params[:rating]['max']
+            gte: @options[:rating][:min],
+            lte: @options[:rating][:max]
           }
         }
       }
     end
 
     def category_terms
-      return if @params[:categories].nil? || @params[:categories]&.empty?
-      { category: @params[:categories] }
+      return if @options[:categories].blank?
+
+      { category: @options[:categories] }
     end
   end
 end

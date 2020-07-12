@@ -20,7 +20,7 @@ class AppSearch::SearchService < AppSearch::Base
 
   def query
     {
-      size:         @params[:size],
+      size:         @options[:size],
       query:        search_query,
       aggregations: aggregations,
       highlight:    highlight

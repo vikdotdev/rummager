@@ -7,11 +7,9 @@ import actions from '../../redux/actions';
 import RangeFilter from './RangeFilter';
 import CategoryFilter from './CategoryFilter';
 
-const Filters = ({ results, stats, fetchStats }) => {
-  useEffect(() => { fetchStats() }, []);
-
+const Filters = ({ global_aggs }) => {
   return (
-    stats && (
+    global_aggs && (
       <div className='card p-4'>
         <RangeFilter />
         <CategoryFilter />
@@ -21,12 +19,10 @@ const Filters = ({ results, stats, fetchStats }) => {
 };
 
 const mapStateToProps = state => ({
-  results: state.search.results,
-  stats: state.filters.stats
+  global_aggs: state.filters.global_aggs
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchStats: () => dispatch(actions.fetchStats())
+const mapDispatchToProps = () => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

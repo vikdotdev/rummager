@@ -6,11 +6,11 @@ import actions from '../../redux/actions';
 
 import 'react-input-range/lib/css/index.css';
 
-const RangeFilter = ({ ratingRange, stats, fetchAll, filterRating }) => {
+const RangeFilter = ({ ratingRange, global_aggs, fetchAll, filterRating }) => {
   return (
     <InputRange
-      minValue={stats.data.rating_stats.min}
-      maxValue={stats.data.rating_stats.max}
+      minValue={global_aggs.rating_stats.min}
+      maxValue={global_aggs.rating_stats.max}
       value={ratingRange}
       onChange={(ratingRange) => filterRating(ratingRange)}
       onChangeComplete={() => fetchAll()}
@@ -20,7 +20,7 @@ const RangeFilter = ({ ratingRange, stats, fetchAll, filterRating }) => {
 
 const mapStateToProps = state => ({
   ratingRange: state.filters.ratingRange,
-  stats: state.filters.stats
+  global_aggs: state.filters.global_aggs
 });
 
 const mapDispatchToProps = dispatch => ({

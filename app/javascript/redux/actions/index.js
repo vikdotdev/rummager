@@ -2,7 +2,7 @@
 // ALL
 const fetchAll = () => ({ type: 'FETCH_ALL' });
 const fetchAllBegin = () => ({ type: 'FETCH_ALL_BEGIN' });
-const fetchAllSuccess = results => ({ type: 'FETCH_ALL_SUCCESS', results });
+const fetchAllSuccess = ({ results, aggs }) => ({ type: 'FETCH_ALL_SUCCESS', results, aggs });
 const fetchAllFailure = error => ({ type: 'FETCH_ALL_FAILURE', error });
 
 // SUGGESTIONS
@@ -29,7 +29,7 @@ const filterCategories = categories => ({ type: 'FILTER_CATEGORIES', categories 
 // STATS
 const fetchStats = () => ({ type: 'FETCH_STATS' });
 const fetchStatsBegin = () => ({ type: 'FETCH_STATS_BEGIN' });
-const fetchStatsSuccess = stats => ({ type: 'FETCH_STATS_SUCCESS', stats });
+const fetchStatsSuccess = global_aggs => ({ type: 'FETCH_STATS_SUCCESS', global_aggs });
 const fetchStatsFailure = error => ({ type: 'FETCH_STATS_FAILURE', error });
 
 // MISC

@@ -6,9 +6,9 @@ import actions from '../../redux/actions';
 
 import 'react-input-range/lib/css/index.css';
 
-const CategoryFilter = ({ results, categories, stats, fetchAll, filterCategories }) => {
+const CategoryFilter = ({ results, aggs, categories, global_aggs, fetchAll, filterCategories }) => {
   const docFromKey = (key) => {
-    return _.find(results.aggs.category_distinct.buckets, (c) => c.key === key);
+    return _.find(aggs.category_distinct.buckets, (c) => c.key === key);
   };
 
   const toggleCategory = (e, category) => {
@@ -18,8 +18,8 @@ const CategoryFilter = ({ results, categories, stats, fetchAll, filterCategories
     fetchAll();
   };
 
-  return stats.data.category_distinct.buckets.map((category) => {
-    const count = results.data.length && docFromKey(category.key);
+  return global_aggs.category_distinct.buckets.map((category) => {
+    const count = results.length && docFromKey(category.key);
 
     return (
       <div className='mt-5' key={category.key}>
@@ -36,8 +36,9 @@ const CategoryFilter = ({ results, categories, stats, fetchAll, filterCategories
 
 const mapStateToProps = state => ({
   results: state.search.results,
+  aggs: state.search.aggs,
   categories: state.filters.categories,
-  stats: state.filters.stats
+  global_aggs: state.filters.global_aggs
 });
 
 const mapDispatchToProps = dispatch => ({

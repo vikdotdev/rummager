@@ -4,7 +4,7 @@ module AppSearch
   class Base
     def initialize(keywords = '', params = {})
       @keywords = keywords
-      @params = default_params.merge(params)
+      @options = default_params.merge(params).deep_symbolize_keys
     end
 
     protected
@@ -22,8 +22,8 @@ module AppSearch
 
       {
         query:     @keywords,
-        analyzer:  @params[:analyzer],
-        fuzziness: @params[:fuzziness],
+        analyzer:  @options[:analyzer],
+        fuzziness: @options[:fuzziness],
         fields:    fields_of_type('text')
       }.compact
     end

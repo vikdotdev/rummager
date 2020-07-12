@@ -12,7 +12,7 @@ import ProjectResult from './ProjectResult';
 import './Results.scss';
 
 const Results = ({ results, loading, setSelectedResult }) => {
-  const resultItems = !loading && results.data.map(result => {
+  const resultItems = !loading && results.map(result => {
     const key = `${result.type}-${result.id}`;
 
     switch(result.type) {
@@ -44,7 +44,7 @@ const Results = ({ results, loading, setSelectedResult }) => {
 };
 
 Results.propTypes = {
-  results: PropTypes.object,
+  results: PropTypes.array,
   loading: PropTypes.bool,
   setSelectedResult: PropTypes.func
 };

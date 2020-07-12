@@ -1,6 +1,6 @@
 class AppSearch::SuggestionService < AppSearch::Base
   def search
-    @params[:analyzer] = 'autocomplete'
+    @options[:analyzer] = 'autocomplete'
 
     Elasticsearch::Model
       .search(query, AppSearch::MODELS_TO_SEARCH)
@@ -11,7 +11,7 @@ class AppSearch::SuggestionService < AppSearch::Base
  
   def query
     {
-      size:         @params[:size],
+      size:         @options[:size],
       query:        { multi_match: multi_match },
       highlight:    highlight
     }.compact

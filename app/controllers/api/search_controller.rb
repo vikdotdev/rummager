@@ -6,16 +6,12 @@ class Api::SearchController < ApplicationController
                       categories: params[:categories])
                  .search
 
-    render :index
+    @stats = AppSearch::SearchService.new.stats
   end
 
   def autocomplete
     @hints = AppSearch::SuggestionService
                .new(params[:keywords], size: 10)
                .search
-  end
-
-  def stats
-    @stats = AppSearch::SearchService.new.stats
   end
 end
