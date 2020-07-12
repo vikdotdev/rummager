@@ -1,6 +1,6 @@
 class Api::SearchController < ApplicationController
   def index
-    @search = ElasticSearch::SearchService
+    @search = AppSearch::SearchService
                  .new(params[:keywords],
                       rating: JSON.parse(params[:rating]),
                       categories: params[:categories])
@@ -10,12 +10,12 @@ class Api::SearchController < ApplicationController
   end
 
   def autocomplete
-    @hints = ElasticSearch::SuggestionService
+    @hints = AppSearch::SuggestionService
                .new(params[:keywords], size: 10)
                .search
   end
 
   def stats
-    @stats = ElasticSearch::SearchService.new.stats
+    @stats = AppSearch::SearchService.new.stats
   end
 end

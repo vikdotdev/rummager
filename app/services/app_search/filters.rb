@@ -1,4 +1,4 @@
-module ElasticSearch
+module AppSearch
   module Filters
     def rating_filter
       {

@@ -1,9 +1,9 @@
-class ElasticSearch::SuggestionService < ElasticSearch::Base
+class AppSearch::SuggestionService < AppSearch::Base
   def search
     @params[:analyzer] = 'autocomplete'
 
     Elasticsearch::Model
-      .search(query, ElasticSearch::Base::MODELS_TO_SEARCH)
+      .search(query, AppSearch::MODELS_TO_SEARCH)
       .results
   end
 

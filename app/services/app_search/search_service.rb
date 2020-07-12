@@ -1,9 +1,9 @@
-class ElasticSearch::SearchService < ElasticSearch::Base
-  include ElasticSearch::Filters
+class AppSearch::SearchService < AppSearch::Base
+  include AppSearch::Filters
 
   def search
     Elasticsearch::Model
-      .search(query, ElasticSearch::Base::MODELS_TO_SEARCH)
+      .search(query, AppSearch::MODELS_TO_SEARCH)
   end
 
   def stats
@@ -13,7 +13,7 @@ class ElasticSearch::SearchService < ElasticSearch::Base
     }.compact
 
     Elasticsearch::Model
-      .search(params, ElasticSearch::Base::MODELS_TO_SEARCH)
+      .search(params, AppSearch::MODELS_TO_SEARCH)
   end
 
   protected

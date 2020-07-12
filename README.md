@@ -2,7 +2,6 @@
 * create "stats" page which will list of top 10 searched projects and users
 * add Travis and automate deployment to heroku
 
-* rename search wrapper module to AppSearch
 * read about use effect
 * different query same request for stats
 * +N for filter categories
@@ -16,6 +15,4 @@
 * filters module nil and empty => blank
 
 # DONE
-* refactor redux
-* range filters
-* category aggregations
+* rename search wrapper module to AppSearch
